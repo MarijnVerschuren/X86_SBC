@@ -68,7 +68,7 @@ module north_bridge
 				//3'b100	:	// TODO		// WRITE, IO, COMMAND
 				3'b101	:	IO_RAM[FSB_addr[6:2]] <= (FSB_data_i & data_mask);	 // WRITE, IO, DATA
 				//3'b110	:	// TODO		// WRITE, MEM, COMMAND
-				3'b111	:	M_RAM[FSB_addr[6:2]] <= (FSB_data_i);    // WRITE, MEM, DATA  // TODO!!!!!!!!!!!!!!!!
+				3'b111	:	M_RAM[FSB_addr[6:2]] <= (FSB_data_i & data_mask);    // WRITE, MEM, DATA  // TODO!!!!!!!!!!!!!!!!
 
 				default	:	begin /* NOP*/ end
 			endcase

@@ -25,11 +25,11 @@ void test_RAM_access(DUT_t* top, uint32_t c) {
 
 void test_IO_access(DUT_t* top, uint32_t c) {
 	switch (c >> 1) {	// index on rising edge cycles
-	case 15:	// write 0xFEEBA555 to IO @ 1 (BE[3] = 1)
+	case 20:	// write 0xFEEBA555 to IO @ 1 (BE[3] = 1)
 		sim_FSB_access(top, 1, 0xFEEBA555UL, MEM_WRITE | MEM_DATA | MEM_IO, 0b0001);
 		break;
 
-	case 16:
+	case 21:
 		sim_FSB_access(top, 1, 0, MEM_READ | MEM_DATA | MEM_IO);
 		break;
 	}
