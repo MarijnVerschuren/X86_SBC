@@ -12,6 +12,7 @@
 typedef void(*test_fn)(DUT_t* top, uint32_t c);
 
 
+void check_result(uint32_t data, uint32_t expected);
 
 void test_RAM_access(DUT_t* top, uint32_t c);
 void test_IO_access(DUT_t* top, uint32_t c);

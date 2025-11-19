@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//#include "cprintf.h"
+#include "cprintf.h"
 
 
 // timescale: ns

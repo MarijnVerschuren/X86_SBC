@@ -24,6 +24,7 @@ void simulate(DUT_t* top, VerilatedVcdC* tfp) {
 	// initial conditions
 	top->clk = 0;
 	top->nrst = 0;
+
 	top->FSB_addr = 0x00000000UL;
 	top->FSB_data_i = 0x00000000UL;
 	top->FSB_NBE = 0b1111;
@@ -31,15 +32,17 @@ void simulate(DUT_t* top, VerilatedVcdC* tfp) {
 	top->FSB_W_NR = 0;
 	top->FSB_M_NIO = 0;
 	top->FSB_D_NC = 0;
+	top->FSB_NADS = 1;
+	top->eval();
 
-		// TODO: change sim_mem_access
-		// * dont do eval
-		// * only set signals
+	// TODO: change sim_mem_access
+	// * dont do eval
+	// * only set signals
 
-		// TODO write seperate func for responce (receiving data from ram) and evaluation! (this has to be done 1 to 2 t after writing signals)
+	// TODO write seperate func for responce (receiving data from ram) and evaluation! (this has to be done 1 to 2 t after writing signals)
 
-		// offset clk with signal changes!!
-		// try modeling 20 Mhz and count clock cycles, then index by clk cycles and run test code only between clk cycles
+	// offset clk with signal changes!!
+	// try modeling 20 Mhz and count clock cycles, then index by clk cycles and run test code only between clk cycles
 
 	// simulation
 	for (
@@ -55,11 +58,11 @@ void simulate(DUT_t* top, VerilatedVcdC* tfp) {
 		}
 
 		// all following changes will happen exaclty in the middle of clock transitions
-		if ((t - ct) == FSB_CLK_Q_PER) {
+		if ((t - ct) == FSB_CLK_Q_PER && !(c % 2)) {
 			top->nrst = (c > 10);
 
-			test_RAM_access(top, c);
-			test_IO_access(top, c);
+			test_RAM_access(top, c >> 1);
+			test_IO_access(top, c >> 1);
 		}
 
 		top->eval();
@@ -85,6 +88,7 @@ void sim_FSB_access(
 	top->FSB_addr	= addr;
 	top->FSB_NBE	= nbe;
 	top->FSB_data_i	= data_o;
+	top->FSB_NADS	= 0;
 }
 
 
