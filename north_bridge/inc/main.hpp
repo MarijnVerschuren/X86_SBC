@@ -14,18 +14,15 @@
 #include "cprintf.h"
 
 
-// timescale: ns
-// #define FSB_FREQ		24*10e6							/* simulated clock speed	*/
-// #define SIM_RUNTIME		200								/* in clock cycles			*/
-// #define FSB_CLK_PER		((uint32_t)((10e9)/FSB_FREQ))	/* clock cycle duration		*/
-// #define FSB_CLK_H_PER	(FSB_CLK_PER >> 1)				/* clock edge duration		*/
-// #define FSB_CLK_Q_PER	(FSB_CLK_PER >> 2)				/* half clock edge duration	*/
+// timescale: ps
+#define FSB_FREQ		2e7								/* simulated clock speed (20MHz)	*/
+#define FSB_CLK_PER		50000							/* clock cycle duration				*/
+#define FSB_CLK_H_PER	(FSB_CLK_PER >> 1)				/* clock edge duration				*/
+#define FSB_CLK_Q_PER	(FSB_CLK_PER >> 2)				/* half clock edge duration			*/
 
-// cude time devision TODO: change dump scheme and use above defines
-#define SIM_RUNTIME		200	/* in clock cycles			*/
-#define FSB_CLK_PER		4	/* clock cycle duration		*/
-#define FSB_CLK_H_PER	2	/* clock edge duration		*/
-#define FSB_CLK_Q_PER	1	/* half clock edge duration	*/
+#define SIM_STEPS		200								/* in clock cycles					*/
+#define SIM_RUNTIME		SIM_STEPS * FSB_CLK_PER			/* in clock ps						*/
+#define SIM_TIMESTEP	(FSB_CLK_PER >> 4)				/* 1/16 clock edge duration			*/
 
 
 typedef Vnorth_bridge DUT_t;

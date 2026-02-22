@@ -35,20 +35,15 @@ void simulate(DUT_t* top, VerilatedVcdC* tfp) {
 	top->FSB_NADS = 1;
 	top->eval();
 
-	// TODO: change sim_mem_access
-	// * dont do eval
-	// * only set signals
-
 	// TODO write seperate func for responce (receiving data from ram) and evaluation! (this has to be done 1 to 2 t after writing signals)
-
 	// offset clk with signal changes!!
 	// try modeling 20 Mhz and count clock cycles, then index by clk cycles and run test code only between clk cycles
 
 	// simulation
 	for (
-		uint32_t c = 0, ct=0, t = 0;	/* cycle, cycle time, time */
-		t < SIM_RUNTIME * FSB_CLK_PER;	/* simulate SIM_RUNTIME clock cycles*/
-		t += FSB_CLK_Q_PER				/* iterate with quarter clock periods */
+		uint64_t c = 0, ct=0, t = 0;	/* cycle, cycle time, time */
+		t < SIM_RUNTIME;				/* simulate SIM_RUNTIME clock cycles*/
+		t += SIM_TIMESTEP				/* iterate with quarter clock periods */
 	) {
 		if (!(t % FSB_CLK_H_PER)) {
 			top->clk = !top->clk;
